@@ -1,27 +1,32 @@
 package com.codecool.uml.overloading;
 
+import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 
-public class Product {
+class Product {
     private static int nextUniqueID = 0;
-    private int id;
+    private final int id;
     private String name;
-    private float defaultPrice;
+    private Float defaultPrice;
     private Currency defaultCurrency;
     private ProductCategory productCategory;
     private Supplier supplier;
-    private List<Product> productList;
+    private static List<Product> productList = new ArrayList<>();
 
     public Product() {
         this.id = nextUniqueID++;
     }
 
-    public Product(String name, float defaultPrice, Currency defaultCurrency) {
+    public Product(String name, Float defaultPrice, Currency defaultCurrency) {
         this.id = nextUniqueID++;
         this.name = name;
         this.defaultPrice = defaultPrice;
         this.defaultCurrency = defaultCurrency;
+    }
+
+    static void addProduct(Product product) {
+        Product.productList.add(product);
     }
 
     public int getId() {
@@ -36,11 +41,11 @@ public class Product {
         this.name = name;
     }
 
-    public float getDefaultPrice() {
+    public Float getDefaultPrice() {
         return defaultPrice;
     }
 
-    public void setDefaultPrice(float defaultPrice) {
+    public void setDefaultPrice(Float defaultPrice) {
         this.defaultPrice = defaultPrice;
     }
 
@@ -68,23 +73,34 @@ public class Product {
         this.supplier = supplier;
     }
 
-    public List<Product> getAllProductsBy(ProductCategory productCategory) {
-        //TODO
-        return null;
+    public static List<Product> getAllProductsBy(ProductCategory productCategory) {
+        List<Product> productsByCategory = new ArrayList<>();
+        for (Product product: productList) {
+            if (product.productCategory.equals(productCategory)) {
+                productsByCategory.add(product);
+            }
+        }
+        return productsByCategory;
     }
 
-    public List<Product> getAllProductsBy(Supplier supplier) {
-        //TODO
-        return null;
+    public static List<Product> getAllProductsBy(Supplier supplier) {
+        List<Product> productsBySupplier = new ArrayList<>();
+        for (Product product : productList) {
+            if (product.supplier.equals(supplier)) {
+                productsBySupplier.add(product);
+            }
+        }
+        return productsBySupplier;
     }
 
     @Override
     public String toString() {
+
         return "id:" + Integer.toString(this.id) +
                 ",name:" + this.name +
-                ",defaultprice:" + Float.toString(defaultPrice) +
-                ",defaultcurrency" + defaultCurrency.toString() +
-                ",supplier:" + supplier;
+                ",defaultprice:" + this.defaultPrice +
+                ",defaultcurrency" + this.defaultCurrency.toString() +
+                ",supplier:" + this.supplier;
     }
 }
 

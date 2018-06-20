@@ -20,9 +20,7 @@ public class Supplier {
     }
 
     public List<Product> getProducts() {
-
-    //TODO
-        return null;
+        return Product.getAllProductsBy(this);
     }
 
     public String getName() {

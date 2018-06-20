@@ -4,12 +4,12 @@ import java.util.List;
 
 public class ProductCategory{
         private static int nextUniqueID = 0;
-        protected int id;
-        protected String name;
-        protected String department;
-        protected String description;
+        int id;
+        String name;
+        String department;
+        String description;
 
-    public ProductCategory() {
+    ProductCategory() {
         this.id = nextUniqueID++;
     }
 
@@ -49,8 +49,7 @@ public class ProductCategory{
     }
 
     public List<Product> getProducts() {
-        //TODO
-        return null;
+        return Product.getAllProductsBy(this);
     }
 
     @Override
